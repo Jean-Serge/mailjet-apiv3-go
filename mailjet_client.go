@@ -255,7 +255,7 @@ func (c *Client) SendMailV31(data *MessagesV31) (*ResultsV31, error) {
 	decoder := json.NewDecoder(r.Body)
 
 	switch r.StatusCode {
-	case http.StatusOK:
+	case http.StatusOK, http.StatusBadRequest, http.StatusForbidden:
 
 		var res ResultsV31
 		if err := decoder.Decode(&res); err != nil {
@@ -263,13 +263,13 @@ func (c *Client) SendMailV31(data *MessagesV31) (*ResultsV31, error) {
 		}
 		return &res, nil
 
-	case http.StatusBadRequest, http.StatusForbidden:
+		// case http.StatusBadRequest, http.StatusForbidden:
 
-		var apiFeedbackErr APIFeedbackErrorsV31
-		if err := decoder.Decode(&apiFeedbackErr); err != nil {
-			return nil, err
-		}
-		return nil, &apiFeedbackErr
+		// var apiFeedbackErr APIFeedbackErrorsV31
+		// if err := decoder.Decode(&apiFeedbackErr); err != nil {
+		// 	return nil, err
+		// }
+		// return nil, &apiFeedbackErr
 
 	default:
 

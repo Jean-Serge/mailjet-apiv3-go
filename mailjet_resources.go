@@ -257,11 +257,15 @@ type GeneratedMessageV31 struct {
 
 // ResultV31 bundles the results of a sent email
 type ResultV31 struct {
-	Status   string
-	CustomID string `json:",omitempty"`
-	To       []GeneratedMessageV31
-	Cc       []GeneratedMessageV31
-	Bcc      []GeneratedMessageV31
+	ErrorClass     string
+	ErrorMessage   string
+	ErrorRelatedTo []string
+	StatusCode     int
+	Status         string
+	CustomID       string `json:",omitempty"`
+	To             []GeneratedMessageV31
+	Cc             []GeneratedMessageV31
+	Bcc            []GeneratedMessageV31
 }
 
 // ResultsV31 bundles several results when several mails are sent
